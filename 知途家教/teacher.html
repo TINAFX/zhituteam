@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport"
+		  content="width=device-width,user-scalable=no,initial-scale=1.0,maximum=1.0,minimum=1.0">
+	<title>Document</title>
+	<script src="./js/jquery-3.2.0.min.js"></script>
+	<script src="./js/vue.js"></script>
+	<style>
+	   html,body {
+	   	background: #f5f5f5;
+	   	font-size: 62.5%;
+	   }
+	   html,body,ul,li,p{
+
+	   	padding: 0;
+	   	margin: 0;
+	   }
+	   ul{
+	   	 list-style: none;
+	   }
+	   a{
+	   	text-decoration: none;
+	   }
+	   .clearfix::after {
+	   	clear: both;
+	   	display: block;
+	   	content: "";
+	   	height: 0;
+
+	   }
+	   .tab{
+	   	width:100%;
+	   	background: #fff;
+	   	position: fixed;
+	   	top: 0;
+	   	z-index: 999;
+	   }
+	   .tab>ul>li {
+	   	
+	   	position: relative;
+	   	float: left;
+	   	width: 33.3%;
+	   	padding: 0.5rem 0;
+	   	text-align: center;
+	    line-height: 1.93333rem;
+	    font-size: 1.5rem;
+	   }
+       .tabtype {
+       	top: 2.5rem;
+       	background: #fff;
+       	z-index: 5;
+       	position: fixed;
+       	width: 100%
+       }
+       .type {
+       	padding: 0.5rem;
+       }
+       .type span{
+       	 display: inline-block;
+       	 font-size: 1.3rem;
+       	 width: 20%;
+       	 margin: 0.5rem 2%;
+       	 text-align: center;
+       	 background: #f5f5f5;
+       	 line-height: 2rem;
+       }
+        .teacher-photo{
+        	width: 7rem;
+        	height: 7rem;
+        	float: left;
+        	overflow: hidden;
+        	margin-right: 1rem;
+        }
+        .teacher-photo  img{
+      	width: 100%;
+      	padding-right: 1rem;
+      	height: 100%;
+      	display: inline-block;
+      }
+      .name {
+      	    font-size: 1.5rem;
+           color: #262323;
+           margin-bottom: 0.5rem;
+      }
+      .subjects{
+      	 color: #fff;
+      	 padding: 0 0.51rem;
+      	 font-size: 1.42rem;
+      	 background: #52c644;
+         border: 1px solid #52c644;
+         border-radius: 0.5rem;
+         background: #52c644;
+      }
+      .grade{
+      	border-radius: 0.5rem;
+         border:1px solid #52c644;
+         font-size: 1.42rem;
+         padding: 0rem 0.5rem;
+         display: inline-block;
+         color: #52c644;
+      }
+      .price {
+      	 display: inline-block;
+      	float: right;
+      	font-size: 1.32rem;
+      	color: #ee4034;
+      }
+      .teach-year {
+      	margin: 0.4rem 0;
+      	font-size: 1.42rem;
+      	color: #888;
+      }
+       .teacher {
+      	padding: 0 0 0.5rem 0;
+      }
+      .accpet span{
+      	background: url("./img/xia.png");
+      	background-repeat: no-repeat;
+      	background-size: 1.42rem 1.42rem;
+      	padding-left: 1.52667rem;
+      	color:#262323;
+      	display: inline-block;
+      	background-position: 0rem  0.18rem;
+      	font-size: 1.42rem;
+      }
+      .teach_time{
+      	right: 0.2rem;
+      	font-style: normal;
+      	display: inline-block;
+      	color: #888;
+      	font-size: 1.42rem;
+      }
+      .teacher-bar {
+      	background: #fff;
+      	padding:1.5rem  1rem 1.5rem 1.5rem ;
+      	position: relative;
+      }
+      .bg1{
+      	color: #52c644;
+      }
+      .bg2{
+      	color: #333;
+      }
+      .teacher-list{
+      	position: relative;
+      	top: 2.5rem;
+      }
+      .show{
+      	display: block;
+      }
+      .hide{
+      	display: none;
+      }
+      .selected{
+      	color:#52c644;
+      }
+      .div{
+      	overflow: hidden;
+      }
+	</style>
+</head>
+<body>
+	<div id="app">
+		<div class="teacherList">
+			<div class="tab clearfix">
+				<ul>
+					<li @click="isActivegrade" :class="showgrade ?'selected':''">
+					  {{grade}}
+					</li>
+					<li @click="isActivesubject" :class="showsubject ?'selected':''">
+					  {{subject}}
+					</li>
+					<li @click="isActivetype" :class="showtype ?'selected':''">   {{teacherType}}
+					</li>
+				</ul>
+			</div>
+			<div v-if="condition" class="tabtype" :class="isshow ? 'show' :'hide'">
+				<div class="type" :class="showgrade ?'show' : 'hide'">
+					<span v-for="item in condition.grade" :class="item.isSelected ? 'selected':''" @click="clickItem(item)">
+					  {{item.label}}
+					</span>
+				</div>
+				<div class="type" :class="showsubject ?'show' : 'hide'">
+					<span v-for="item in condition.subject
+					" :class="item.isSelected ? 'selected':''" @click="clickItem(item)">
+					  {{item.label}}
+					</span>
+				</div>
+				<div class="type" :class="showtype ?'show' : 'hide'">
+					<span v-for="item in condition.type" :class="item.isSelected ? 'selected':''" @click="clickItem(item)">
+					  {{item.label}}
+					</span>
+				</div>
+			</div>
+			<div class="teacher-list">
+				<div class="teacher-bar clearfix" v-for="a in teacher">
+					<div class="teacher-photo">
+						<img :src="a.image" alt="">
+					</div>
+					<div class="div">
+						<span class="name" >{{a.name}}</span>
+			            <span v-for="Item in a.subject" class="subjects">{{Item.label}}</span>
+			            <span v-for="ntem in a.grade" class="grade">{{ntem.label}}</span>
+			            <span class="teach_time">已授{{a.teach_time}}课时</span>
+						<p class="teach-year">{{a.teach_year}}年教龄</p>
+						<p class="accpet" >
+							<span v-for="ctem in a.extend_tag">{{ctem.label}}</span>
+						</p>
+					</div>
+					
+				</div>
+			</div>
+		</div>
+	</div>
+	<script>
+	 function getQuery(){
+				var str = (window.location.search.length > 0 ?window.location.search.substring(1) : ''),
+
+				args = {},
+				items = str.length ? str.split("&") : [],
+				item = null,
+				name = null,
+				value = null;
+				for (i=0; i < items.length; i++){
+					item = items[i].split("=");
+					name = decodeURIComponent(item[0]);
+					value = decodeURIComponent(item[1]);
+					if (name.length) {
+						args[name] = value;
+					}
+				}
+				console.log(window.location.search),
+				console.log(items)
+				return args;
+			}
+
+
+
+
+
+
+	   var teacher=new Vue({
+	   	el:'#app',
+	   	data:{
+	   		isshow:false,
+   		  	grade: '年级',
+   		  	searchGrade:null,
+   		  	showgrade:false,
+   		  	subject: '学科',
+   		  	subject:getQuery().subject ? getQuery.subject:'学科',
+   		  	searchSubject:null,
+   		  	showsubject:false,
+   		  	teacherType: '教师类型',
+   		  	searchType:null,
+   		  	showtype:false,
+	   		condition:null,
+	   	    teacher:[],
+	   },
+	   mounted:function(){
+	   	  this.searchSubject=getQuery().id;
+
+	   	  console.log(this.searchSubject)
+	   	var data={
+	   		'subject':this.searchSubject,
+	   		'offset':0,
+	   		'limit':20,
+	   	}
+	   	this.getData(data);
+	   },
+	   methods:{
+	   	getData:function(dataObj){
+	   		var that =this;
+	   		$.ajax({
+	   			url:"http://api.zhituteam.com/api/teacher/lists",
+	   			dataType:"json",
+	   			type:"get",
+	   			data:dataObj,
+	   			success:function(res){
+	   				res.data.condition.grade.forEach(function(item){
+                                    item.isSelected = false;
+                                })
+                    res.data.condition.subject.forEach(function(item){
+                        item.isSelected = false;
+                    })
+                    res.data.condition.type.forEach(function(item){
+                        item.isSelected = false;
+                    })
+	   				that.teacher=res.data.teacher;
+	   				if(that.condition == null){
+	   					that.condition=res.data.condition;
+	   					that.condition.subject.forEach(function(a){
+                           if(that.searchSubject==a.id){
+                           	 that.subject=a.label;
+                             a.isSelected=true;
+                             that.showsubject=true;
+
+                           }
+	   					})
+	   				}
+	   			}
+	   		})
+	   	},
+	   	isActivegrade:function(){
+	   		this.isshow=true;
+	   		this.showgrade=true;
+	   		this.showsubject=false;
+	   		this.showtype=false;
+	   	},
+	   	isActivesubject:function(){
+	   		this.isshow=true;
+	   		this.showgrade=false;
+	   		this.showsubject=true;
+	   		this.showtype=false;
+	   	},
+	   	isActivetype:function(){
+	   		this.isshow=true;
+	   		this.showgrade=false;
+	   		this.showsubject=false;
+	   		this.showtype=true;
+	   	},
+	   	clickItem:function(item){
+            this.condition.grade.forEach(function(t){
+            	t.isSelected=false
+            })
+            this.condition.subject.forEach(function(t){
+            	t.isSelected=false
+            })
+            this.condition.type.forEach(function(t){
+            	t.isSelected=false
+            })
+            item.isSelected=true;
+            this.isshow=false;
+            if(this.showgrade){
+            	this.searchGrade=item.id
+            	this.grade=item.label
+            }
+             if(this.showsubject){
+             	this.searchSubject=item.id
+            	this.subject=item.label
+            	console.log(this.subject)
+            }
+             if(this.showtype){
+             	this.searchType=item.id
+            	this.teacherType=item.label
+            }
+            var data={
+            	'grade': this.searchGrade,
+                'type': this.searchType,
+                'subject': this.searchSubject,
+                'offset': 0,
+                'limit': 20,
+            }
+            this.getData(data)
+	   	}
+	   }
+	   })
+	</script>
+</body>
+</html>

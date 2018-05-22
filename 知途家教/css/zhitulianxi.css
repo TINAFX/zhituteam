@@ -1,0 +1,156 @@
+body,html {
+	font-size: 62.5%;
+}
+body,html,ul,li,p,img,h2{
+	margin:0;
+	padding: 0;
+}
+ul {
+	list-style: none;
+}
+.title{
+	font-size: 1.7rem;
+	margin-bottom: 1rem;
+	margin-top: 1rem;
+	text-align: center;
+}
+.head{
+	padding: 1rem 2rem;
+	border-top: 1px solid #9e9e9e24;
+}
+.head>img {
+	width: 9rem;
+    height: 1.8rem;
+}
+.my {
+	float: right;
+}
+.my img {
+	width:1.5rem;
+	height: 1.5rem;
+	position: relative;
+	top: 0.2rem;
+}
+.my span {
+	display:inline-block;
+	font-size: 1.5rem;
+	color:#26232;
+}
+.banner p img {
+	width: 100%;
+	height: 10rem;
+}
+.subject {
+	height: 7rem;
+	overflow:hidden;
+	padding: 1rem 2rem;
+}
+.subject ul {
+	height: 9em;
+	overflow-x: auto;
+	overflow-y: hidden;
+	white-space: nowrap;
+}
+.subject ul li img {
+	display: inline-block;
+	width: 5rem;
+	height: 5rem;
+	border-radius: 100%;
+}
+.subject ul li p{
+	color: #333;
+    font-size:1.5rem;
+  
+}
+.subject ul li {
+	display: inline-block;
+	width: 20%;
+	text-align: center;
+}
+
+.select {
+	background:  #52c644;
+}
+.clearfix::after {
+	clear: both;
+	display: block;
+	content: "";
+	height: 0;
+}
+.hot-title {
+	font-size: 2.2rem;
+	color: #ff7200;
+	padding: 0.4rem 1rem;
+}
+.hot-teacher {
+	background: #9e9e9e24;
+}
+.teacherlist li {
+	padding:1rem 1rem;
+	background: #fff;
+	margin-bottom: 1rem;
+}
+ .photo img{
+ 	   float: left;
+     	width:7rem;
+     	height:7rem;
+     	margin-right: 1rem;
+     }
+.name {       
+	color: #333;
+     	font-size: 2rem;
+     	display: inline-block;
+     }
+.subjects{
+	display: inline-block;
+	line-height: 2rem;
+	
+	text-align: center;
+	border-radius: 0.8rem;
+	color: #fff;
+	border: 1px solid #52c644;
+	display: inline-block;
+	padding: 0.1rem;
+	background:#52c644;
+	margin:  0 0.2rem;
+     }
+     .grade {
+     	display: inline-block;
+.     	height: 1.5rem;
+     	border-radius: 0.5rem;
+     	border: 1px solid #52c644;
+     	text-align: center;
+     	font-size: 1.2rem;
+     	color:#52c644;
+     	line-height: 2rem;
+     }
+     .teach_time{
+     	display: inline-block;
+     	line-height: 3rem;
+     	float: right;
+     	font-size: 1.5rem;
+     	color: #888;
+     }
+     .teach_year{
+     	margin-top: 0.5rem;
+     	margin-left: 5rem;
+     	color: #888;
+     	font-size: 1.5rem;
+
+     }
+     .per {
+     	background: url("../img/xia.png");
+     	background-repeat: no-repeat;
+     	background-size: 1.8rem 1.8rem;
+     	background-position: 8rem 0rem;
+     	font-size: 1.5rem;
+     	margin-top: 0.9rem;
+     	color:#262323;   
+       }
+       .per span{
+       	 display: inline-block;
+       	 margin-left: 2rem;
+       }
+        a{
+        	text-decoration: none;
+        }

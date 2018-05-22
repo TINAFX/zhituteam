@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport"
+		  content="width=device-width,user-scalable=no,initial-scale=1.0,maximum=1.0,minimum=1.0">
+	<title>Document</title>
+	<script src="./js/vue.js"></script>
+	<script src="./js/jquery-3.2.0.min.js"></script>
+</head>
+<body>
+   <style>
+      html,body{
+      	background: #f5f5f5;
+      	padding: 0;
+      	margin: 0;
+      	font-size: 62.5%
+      }
+   ul,li,p,img {
+      	margin: 0;
+      	padding: 0;
+      }
+      ul {
+      	list-style: none;
+      }
+      .teacher-photo  img{
+      	width: 7rem;
+      	padding-right: 1rem;
+      	height: 7rem;
+      	display: inline-block;
+      	float: left;
+      }
+      .name {
+      	    font-size: 1.5rem;
+           color: #262323;
+           margin-bottom: 0.5rem;
+      }
+      .subjects{
+      	 color: #fff;
+      	 padding: 0 0.51rem;
+      	 font-size: 1.42rem;
+      	 background: #52c644;
+         border: 1px solid #52c644;
+         border-radius: 0.5rem;
+         background: #52c644;
+      }
+      .grade{
+      	border-radius: 0.5rem;
+         border:1px solid #52c644;
+         font-size: 1.42rem;
+         padding: 0rem 0.5rem;
+         display: inline-block;
+         color: #52c644;
+      }
+      .price {
+      	 display: inline-block;
+      	float: right;
+      	font-size: 1.32rem;
+      	color: #ee4034;
+      }
+      .teach-year {
+      	font-size: 1.42rem;
+      	color: #888;
+      }
+      .teacher-detail {
+      	background: #fff;
+      	padding:1.5rem  1rem 1.5rem 1.5rem ;
+      	position: relative;
+      }
+      .teacher {
+      	padding: 0 0 0.5rem 0;
+      }
+      .accpet span{
+      	background: url("./img/xia.png");
+      	background-repeat: no-repeat;
+      	background-size: 1.42rem 1.42rem;
+      	padding-left: 1.52667rem;
+      	color:#262323;
+      	background-position: 0rem  0.18rem;
+      	position: absolute;
+      	bottom: 1.5rem;
+      	font-size: 1.42rem;
+      }
+      .accpet i {
+      	right: 1rem;
+      	font-style: normal;
+      	display: inline-block;
+      	position: absolute;
+      	bottom: 1.5rem;
+      	color: #888;
+      	font-size: 1.42rem;
+      }
+      .clearfix:after {
+      	clear: both;
+      	content: "";
+      	display: block;
+      	height: 0;
+      }
+      .info-box {
+      	margin-top: 1rem;
+      	background: #fff;
+      	padding: 1.5rem;
+      }
+      .title {
+      	padding-left: 1.52rem;
+      	background: url("./img/info.png");
+      	background-repeat: no-repeat;
+      	font-size: 1.4rem;
+      	background-position: 0 0.1rem;
+        background-size: 1.42rem 1.42rem;
+        color: #262323;
+      }
+      .content {
+      	margin-top: 1rem;
+      	color: #888;
+      	padding-left: 1.42rem;
+      	text-align: left;
+      	font-size: 1.42rem;
+      }
+      .teacher-box{
+      	padding: 0 0 1.5rem 1.5rem;
+      	background: #fff;
+      }
+      .teacher-box .title {
+      	background-image: url("./img/box.png");
+      }
+      .case {
+      	background: #fff;
+      	padding: 0 0 0 1.5rem;
+      }
+      .case .title {
+      	background: url("./img/case.png");
+      	background-repeat: no-repeat;
+      	background-size: 1.42rem 1.42rem;
+      }
+      .case-name {
+      	color: #2b2b2b;
+      	font-size:1.45rem;
+      }
+      .content ul li {
+      	border-bottom:1px solid #f5f5f5;
+      	padding-bottom: 1rem;
+      }
+      .perfect {
+      	padding:3rem 0 5rem 1.5rem;
+      	text-align: center;
+      }
+      .perfect p {
+      	font-size: 2rem;
+      	color: #888;
+      }
+      .order {
+      	position: fixed;
+      	bottom:0;
+      	width: 100%
+      }
+      .collect {
+      	
+      	text-align: center;
+      	width: 15%;
+      	float: left;
+      	background: #49a775;
+      }
+      .collect img {
+       width: 1rem;
+       height: 1rem;
+      }
+      .collect span {
+      	display: inline-block;
+      	height: 4.3rem;
+      	font-size: 1.5rem;
+      	color: #fff;
+      	line-height: 4.3rem;
+      }
+      .now {
+      	margin-left: 15%;
+      	width: 85%;
+      	text-align: center;
+      	background: #2dc072;
+      	height: 4.3rem;
+      	font-size: 1.5rem;
+      	color: #fff;
+      	line-height: 4.3rem;
+      }
+   </style>
+	<div id="main">
+	   <div>
+		   	<div class="teacher-detail  clearfix" >
+				<div class="teacher-photo">
+					<img :src="teacher.image" alt="">
+				</div>
+				<span class="name" >{{teacher.name}}</span>
+	            <span v-for="Item in teacher.subject" class="subjects">{{Item.label}}</span>
+	            <span v-for="ntem in teacher.grade" class="grade">{{ntem.label}}</span>
+	            <span class="price">{{teacher.price}}</span>
+				<p class="teach-year">{{teacher.teach_year}}年教龄</p>
+				<p class="accpet" v-for="ctem in teacher.extend_tag">
+					<span>{{ctem.label}}</span>
+					<i>已授{{teacher.teach_time}}课时</i>
+				</p>
+		    </div>
+			<div class="info-box">
+				<div class="title">个人简介</div>
+				<div class="content">
+					<p>{{teacher.intro}}</p>
+				</div>
+			</div>
+			<div class="teacher-box">
+				<div class="title">教学经历</div>
+				<div class="content" v-for="c in teacher.teacher_experience">
+					<p>{{c.title}}</p>
+				</div>
+			</div>
+			<div class="case" >
+				<div class="title">成功案例</div>
+				<div class="content">
+				  <ul>
+				    <li v-for="b in teacher.teacher_case">
+				    	<div class="case-name">{{b.title}}</div>
+					    <p>{{b.content}}</p>
+				    </li>
+				  </ul>
+				</div>
+			</div>
+			<div class="perfect clearfix">
+				<p>满意就预约吧!</p>
+			</div>
+			<div class="order">
+				<div class="collect">
+				<img src="./img/s.png" alt="">
+			    <span>收藏</span>
+				</div>
+				<div class="now">
+					<span>预约试讲</span>
+				</div>
+			</div>
+	    </div>
+	</div>
+	<script>
+	  var teach=new Vue({
+	  	el:"#main",
+	  	data:{
+	  		teacher:{
+	  		},
+	  	},
+	  	mounted:function(){
+	  		this.getData();
+	  	},
+	  	methods:{
+         getQuery:function(){
+           var str=(location.search.length>0 ? location.search.substring(1):''),
+           args={},
+           items=str.length ? str.split("&"):[],
+           item=null,
+           name=null,
+           value=null;
+           for(i=0;i<items.length;i++){
+             item=items[i].split("=");
+             name=decodeURIComponent(item[0]);
+             value=decodeURIComponent(item[1]);
+             if(name.length){
+               args[name]=value;
+             }
+           }
+            return args;
+         },
+	  		getData:function(){
+
+	  			var that=this
+	  		    var nowId=that.getQuery().id
+	  			$.ajax({
+	  				url:"http://api.zhituteam.com/api/teacher/info/",
+	  				type:"get",
+	  				dataType:"json",
+	  				data:{
+	  					id:nowId
+	  				},
+	  				success:function(res){
+                    that.teacher=res.data.teacher
+                    }
+	  			})
+	  		}
+	  	}
+	  })
+	</script>
+</body>
+</html>

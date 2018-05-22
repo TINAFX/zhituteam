@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport"
+		  content="width=device-width,user-scalable=no,initial-scale=1.0,maximum=1.0,minimum=1.0">
+	<title>Document</title>
+	<script src="./js/vue.js"></script>
+	<script src="./js/jquery-3.2.0.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Swiper/4.0.2/css/swiper.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Swiper/4.0.2/js/swiper.js"></script>
+	<link rel="stylesheet" href="./css/zhitulianxi.css">
+</head>
+<body>
+    <div id="app">
+        <h2 class="title">知途家教</h2>
+    	<div class="top">
+    		<div class="head">
+    		    <img src="./img/logo.png" alt="">
+    			<div class="my">
+    				<img src="./img/my.png" alt="">
+    				<span>我的</span>
+    			</div>
+    		</div>
+    		<div class="banner">
+                <div class="swiper-container">
+                    <div class="swiper-wrapper">
+                        <div class="swiper-slide">
+                            <p v-for="each in banner"><img :src="each.image" alt=""></p>
+                        </div>
+                    </div>
+                </div>
+    			
+    		</div>
+    		<div class="subject clearfix">
+    			<ul>
+                
+                    <li v-for="sm in subjects">
+                        <a :href="'./teacher.html?id='+sm.id+'&name='+sm.name">
+                            <img :src="sm.icon" alt="">
+                            <p>{{sm.name}}</p>
+                        </a>
+                    </li>
+                
+    			</ul>
+    		</div>
+    	</div>
+    	<div class="hot-teacher">
+    		<h2 class="hot-title">热门教师</h2>
+    		<ul class="teacherlist">
+				<li v-for="item in teacher">
+                   <a :href="'./zhituxiangqing.html?id='+item.id">
+                       <div class="photo">
+                        <img :src="item.image" alt="">
+                        </div>
+                    <span class="name">{{item.name}}</span>
+                    <span v-for="Item in item.subject" class="subjects">{{Item.label}}</span>
+                    <span v-for="ntem in item.grade" class="grade">{{ntem.label}}</span>
+                    <span class="teach_time">已授{{item.teach_time}}课时</span>
+                    <p class="teach_year">{{item.teach_year}}年教龄</p>
+                    <p  v-for="Ntem in item.extend_tag"class="per"><span>{{Ntem.label}}</span></p>
+                   </a>
+				    
+				</li> 
+		    </ul>
+    	</div>
+    </div>
+	<script src="./js/zhitulianxi.js"></script>
+</body>
+</html>
